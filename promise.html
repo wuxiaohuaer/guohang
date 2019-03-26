@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script src="./jquery.js"></script>
+    <script>
+        // function runAsync(){
+        //     var p = new Promise(function(resolve, reject){
+        //         //做一些异步操作
+        //         setTimeout(function(){
+        //             console.log('执行完成');
+        //             resolve('随便什么数据');
+        //         }, 2000);
+        //     });
+        //     return p;            
+        // }
+        // runAsync()
+        function request(url, param, successFun, errorFun) {
+            $.ajax({
+                type: 'GET',
+                url: url,
+                param: param,
+                async: true,    //默认为true,即异步请求；false为同步请求
+                success: successFun,
+                error: errorFun
+            });
+        }
+        function sendRequest(url, param) {
+            return new Promise(function (resolve, reject) {
+                request(url, param, resolve, reject);
+            });
+        }
+        sendRequest('test.html', '').then(function(data) {
+            //异步操作成功后的回调
+            console.log('请求成功啦, 这是返回的数据:', data);
+        }, function(error) {
+            //异步操作失败后的回调
+            console.log('sorry, 请求失败了, 这是失败信息:', error);
+        });
+    </script>
+</body>
+</html>

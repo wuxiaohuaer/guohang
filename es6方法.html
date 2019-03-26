@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div></div>
+    <script>
+        // 1、首先是let和const
+
+        // let声明一个变量作用于一个块级作用域上，相当于写了一个匿名函数保存了let声明变量（暂存死区），
+        // const声明一个常量，此常量不可更改，ES6里面把用let和const声明的变量开辟了一个内存空间，
+        // 该内存空间不挂在于window上，而var声明的变量是挂载到window上的。
+
+        // 为什么let和const定义的变量不放在window上？
+        // 顶层对象，在浏览器环境指的是window对象,在node指的是global对象；
+        // 顶层对象的属性和全局变量挂钩，被认为是js中最大的失败;
+        // ES6为了改变这一点，并保持兼容性,var 命令和function命令声明的全局变量，依旧是顶层对象,
+        // 另一方面规定：let命令和const命令,class命令声明的全局变量不再属于顶层对象的属性,
+        // 也就是说：从ES6开始，全局变量将逐渐与鼎城对象的属性脱钩;
+
+        // 首先是没法在编译时就报出变量未声明的错误，
+        // 只有运行时才能知道（因为全局变量可能是顶层对象的属性创造的，而属性的创造是动态的）；
+        // 其次，程序员很容易不知不觉地就创建了全局变量（比如打字出错）；
+        // 最后，顶层对象的属性是到处可以读写的，这非常不利于模块化编程。
+        // window对象有实体含义，指的是浏览器的窗口对象，顶层对象是一个有实体含义的对象，也是不合适的。
+        // let a = 1000; // let不会将变量放在window上
+        // const b = 200;
+        // let obj = {
+        //     a: 1,
+        //     b: () => {
+        //         this.a = 100; // window
+        //     }
+        // }
+        // obj.b();
+        // console.log(obj.a,a,this.b,b);
+
+        // 解构赋值
+        
+        // 既声明 又赋值 默认值
+        // let [,b,c=8,d=100] = [1,2,3,7];
+        // console.log(b,d);
+        
+        // 对象的解构
+        // let obj = {name:'zhangsan',age:15};
+        // let {name:Name,age,address="默认"} = obj;
+        // console.log(Name, age, address)
+        
+        // 数组 + 对象
+        // let [{name}] =  [{name:'wanghuahua'}];
+        // console.log(name)
+
+        // 传递参数，结果解构
+        // Promise.all(['zhangsan','15']).then(([name,age])=>{
+        //     console.log(name, age);
+        // });
+        
+        // 扩展运算符
+        // ES6里面还有扩展运算符...他可以用来做许多事情比如合并数组什么的，但是这个是浅拷贝
+        // let arr1 = [1,2,3,[1,2,3]];
+        // let arr2 = [1,2,3];
+        // let arr = [...arr1,...arr2];
+        // var a = 1
+        // 深浅拷贝
+            
+        // // console.log(window.a);  // [1, 2, 3, Array(3), 1, 2, 3]
+        // var newObj = Object.assign([], arr1);
+        // console.log(newObj); 
+        // var num = 10;
+        // var obj = {
+        //     name: 'Nicholas'
+        // }
+
+        // var num2 = num;
+        // var obj2 = obj;
+
+        // obj.name = 'Lee';
+        // obj2.name;
+        // console.log(obj2.name);
+
+
+        // var Nation = {　　
+        //     nation: '中国'
+        // };
+        // function extendCopy(p) {　　
+        //     var c = {};　　
+        //     for (var i in p) {　　　　
+        //         c[i] = p[i];　　
+        //     }　　
+        //     return c;
+        // }
+        // var Doctor = extendCopy(Nation);
+        // Doctor.career = '医生';
+        // Doctor.nation = '美国';
+        // console.log(Doctor.nation); // 美国
+        // console.log(Nation.nation); // 中国
+        // console.log(Doctor.career); // 医生
+
+
+//         function simpleClone(initalObj) {    
+//           var obj = {};    
+//           for ( var i in initalObj) {
+//             obj[i] = initalObj[i];
+//           }    
+//           return obj;
+//         }
+
+//         var obj = {
+//           a: "hello",
+//           b:{
+//               a: "world",
+//               b: 21
+//             },
+//           c:["Bob", "Tom", "Jenny"],
+//           d:function() {
+//               alert("hello world");
+//             }
+//         }
+       
+//         var obj1 = simpleClone(obj);
+//         console.log('obj1=>>>',obj1);
+//         // 1、
+//         obj1.c = ['mm', "Tom", "Jenny"]; // 一层，作为整体，重写，全改变；改变属性值，不改变原对象
+//         console.log('obj=>>>',obj); //obj.c => ["Bob", "Tom", "Jenny"]
+// 　　　　　// 2、
+// 　　     obj1.c[0] = 'mm'; // 浅拷贝时，改变属性的属性值，改变原对象
+//         console.log('obj=>>>',obj); //obj.c => ["mm", "Tom", "Jenny"]
+
+            // const originArray = [1,2,3,4,5];
+            // const cloneArray = JSON.parse(JSON.stringify(originArray));
+            // console.log(cloneArray === originArray); // false
+            
+            // const originObj = {a:'a',b:'b',c:[1,2,3],d:{dd:'dd'}};
+            // const cloneObj = JSON.parse(JSON.stringify(originObj));
+            // console.log(cloneObj === originObj); // false
+            
+            // cloneObj.a = 'aa';
+            // cloneObj.c = [1,1,1];
+            // // cloneObj.d.dd = 'doubled';
+            // let obj1 = { a: 0 , b: { c: 0}};
+            // let obj2 = Object.assign({}, obj1);
+            // console.log(JSON.stringify(obj2));
+            // obj1.a = 1;
+            // console.log(JSON.stringify(obj1)); // { a: 1, b: { c: 0}}
+            // console.log(JSON.stringify(obj2));
+            // obj2.b.c = 3;
+            // console.log(JSON.stringify(obj1)); // { a: 1, b: { c: 3}}//注意这里对象1里的c属性也发生了改变
+            // console.log(JSON.stringify(obj2)); // { a: 1, b: { c: 3}}
+            // console.log(cloneObj); // {a:'aa',b:'b',c:[1,1,1],d:{dd:'doubled'}};
+            // console.log(originObj); // {a:'a',b:'b',c:[1,2,3],d:{dd:'dd'}};
+        // 总结
+
+
+
+        // some() 该方法对数组中的每一项运行给定函数，如果该函数对任何一项返回 true，则返回true。
+        // every()：该方法对数组中的每一项运行给定函数，如果该函数对每一项都返回 true，则返回true。
+        // filter() ：该方法对数组中的每一项运行给定函数，返回该函数会返回 true 的项组成的数组。利用这个方法可对数组元素进行过滤筛选。
+        // map(): 该方法对数组中的每一项运行给定函数，返回每次函数调用的结果组成的数组。
+        // var arr = [1,2,4,5,867,87867,87]
+        // var boolen = arr.some(e=>{
+        //     return e < 2
+        // })
+        // console.log(boolen)//true
+        // var boolen = arr.every(e=>{
+        //     return e < 110000
+        // })
+        // console.log(boolen)//true
+        // var arr1 = arr.filter(e=>{
+        //     return e < 88
+        // })
+        // console.log(arr1)//[1, 2, 4, 5, 87]
+        // var arr1 = arr.map(e=>{
+        //     return e * 2 
+        // })
+        // console.log(arr1)//[2, 4, 8, 10, 1734, 175734, 174]
+        var arr = [ 1, 2, 3, 4];
+        // 1、previousValue （上一次调用回调返回的值，或者是提供的初始值（initialValue））
+        // 2、currentValue （数组中当前被处理的元素）
+        // 3、index （当前元素在数组中的索引）
+        // 4、array （调用 reduce 的数组）
+
+        // var sum = arr.reduce(function(prev, cur, index, arr) {
+        //     console.log(prev, cur, index);
+        //     return prev + cur;
+        // })
+        // console.log(arr, sum);//10处理完的结果
+
+        // var sum = arr.reduce(function(prev, cur, index, arr) {
+        //     console.log(prev, cur, index);
+        //     return prev + cur;
+        // },2)
+        // console.log(arr, sum);//10处理完的结果
+
+        let names = ['Alice', 'Bob', 'Tiff', 'Bruce', 'Alice'];
+        let nameNum = names.reduce((pre,cur)=>{
+            if(cur in pre){
+                pre[cur]++
+            }else{
+                pre[cur] = 1 
+            }
+            return pre
+        },{})
+        console.log(nameNum);
+    </script>
+</body>
+</html>
